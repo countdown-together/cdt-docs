@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+  cdt-be: # serves on 8080
+    image: countdowntogether/cdt-be:deploy-145
+    ports:
+      - "6014:8080" # maps 8080 of container to 7001 of host
+    expose:
+      - "8080" # let other containers access to this service on 8080
+    restart: always

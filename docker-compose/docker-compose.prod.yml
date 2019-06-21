@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+
+  cdt-be:
+    environment:
+      - spring.profiles.active=prod
