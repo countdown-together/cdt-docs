@@ -5,3 +5,46 @@ services:
   cdt-be:
     environment:
       - spring.profiles.active=prod
+    networks:
+      - internal
+      - proxy
+    labels:
+      - traefik.backend=cdt-be
+      - traefik.frontend.rule=Host:api.todarch.com
+      - traefik.docker.network=proxy
+      - traefik.port=8080
+
+  cdt-web:
+    environment:
+      - REACT_APP_API_ENDPOINT=https://api.todarch.com
+    networks:
+      - internal
+      - proxy
+    labels:
+      - traefik.backend=cdt-web
+      - traefik.frontend.rule=Host:app.todarch.com, todarch.com
+      - traefik.docker.network=proxy
+      - traefik.port=5000
+
+  rp:
+    image: traefik:1.7.3-alpine
+    command: --api --docker  # Enables the web UI and tells Traefik to listen to docker
+    ports:
+      - "80:80"      # The HTTP port
+      - "8080:8080"  # The Web UI (enabled by --api)
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # So that Traefik can listen to the Docker events
+      - $PWD/traefik.toml:/traefik.toml
+      - $PWD/acme.json:/acme.json
+    networks:
+      - proxy
+    labels:
+      - traefik.frontend.rule=Host:rp.todarch.com
+      - traefik.port=8080
+
+networks:
+  proxy: # docker network create proxy for the first time
+    external: true
+  internal:
+    external: false
