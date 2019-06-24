@@ -34,4 +34,5 @@ echo "export CDT_DOCS=$HOME/cdt-docs" >> ~/.bashrc
 echo "alias dcp=dcoker-compose -f $CDT_DOCS/docker-compose/docker-compose.yml -f $CDT_DOCS/docker-compose/docker-compose.prod.yml" >> ~/.bashrc
 docker network create proxy
 dcp up -d rp cdt-web
+ln -s $CDT_DOCS/docker-compose/deploy_app.sh $HOME/deploy_app.sh
 ```
