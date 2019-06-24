@@ -3,7 +3,7 @@ version: '3'
 services:
 
   cdt-be: # serves on 8080
-    image: eightwelve/cdt-be:master-20190621204218
+    image: eightwelve/cdt-be:latest
     ports:
       - "6014:8080"
     expose:
@@ -11,7 +11,7 @@ services:
     restart: always
 
   cdt-web:
-    image: eightwelve/cdt-web:master-20190622070949
+    image: eightwelve/cdt-web:latest
     ports:
       - "6015:5000"
     expose:
