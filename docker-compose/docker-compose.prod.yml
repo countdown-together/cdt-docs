@@ -10,19 +10,19 @@ services:
       - proxy
     labels:
       - traefik.backend=cdt-be
-      - traefik.frontend.rule=Host:api.todarch.com
+      - traefik.frontend.rule=Host:api.cdt.eightwelve.co
       - traefik.docker.network=proxy
       - traefik.port=8080
 
   cdt-web:
     environment:
-      - REACT_APP_API_ENDPOINT=https://api.todarch.com
+      - REACT_APP_API_ENDPOINT=https://api.cdt.eightwelve.co
     networks:
       - internal
       - proxy
     labels:
       - traefik.backend=cdt-web
-      - traefik.frontend.rule=Host:app.todarch.com, todarch.com
+      - traefik.frontend.rule=Host:cdt.eightwelve.co
       - traefik.docker.network=proxy
       - traefik.port=5000
 
@@ -40,7 +40,7 @@ services:
     networks:
       - proxy
     labels:
-      - traefik.frontend.rule=Host:rp.todarch.com
+      - traefik.frontend.rule=Host:rp.eightwelve.co
       - traefik.port=8080
 
 networks:
