@@ -24,3 +24,14 @@ docker-compose up -d cdt-web
 ```
 
 - visit [localhost:6015](localhost:6015) on browser
+
+### production
+
+
+```shell
+chmod 600 acme.json
+echo "export CDT_DOCS=$HOME/cdt-docs" >> ~/.bashrc
+echo "alias dcp=dcoker-compose -f $CDT_DOCS/docker-compose/docker-compose.yml -f $CDT_DOCS/docker-compose/docker-compose.prod.yml" >> ~/.bashrc
+docker network create proxy
+dcp up -d rp cdt-web
+```
