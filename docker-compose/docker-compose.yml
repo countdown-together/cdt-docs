@@ -3,9 +3,21 @@ version: '3'
 services:
 
   cdt-be: # serves on 8080
-    image: countdowntogether/cdt-be:deploy-145
+    image: eightwelve/cdt-be:latest
     ports:
-      - "6014:8080" # maps 8080 of container to 7001 of host
+      - "6014:8080"
     expose:
       - "8080" # let other containers access to this service on 8080
+    restart: always
+
+  cdt-web:
+    image: eightwelve/cdt-web:latest
+    ports:
+      - "6015:5000"
+    expose:
+      - "5000"
+    depends_on:
+      - cdt-be
+    environment:
+      - REACT_APP_API_ENDPOINT=http://localhost:6014
     restart: always
